@@ -126,16 +126,19 @@ do
 								RUN_ARRAY[${RUN}]=1
 							fi
 							#get fastqs in input
+							#deal with manifets and intervals file
 							INPUT='132_hg19'
 							if [[ "${FILE}" =~ /NS_.+_2\.txt ]]; then
 								INPUT='2_hg19'
+							elif [ "${FILE}" == 'NS_targeted_121_1.txt' ]; then
+								INPUT='121_hg19'
 							fi
 							#LOG_FILE="${AUTONENUFAAR_DIR}autonenufaar.log"
 							#touch ${LOG_FILE}
 							#exec &>${LOG_FILE}
 							echo "$(date) Copying fastqs of ${RUN} in input/NS/${INPUT}/${RUN} folder"
 							mkdir "${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}"
-							${RSYNC} -avq --exclude=L001 --exclude="*.txt" --exclude="Undetermined*"  --delete "${RUN_PATH}${RUN}/Data/Intensities/BaseCalls/" "${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}"
+							${RSYNC} -avq --exclude=L001 --exclude="*.txt" --exclude="Undetermined*" --exclude="*.xml" --exclude=Alignment --exclude=Matrix --exclude=Phasing --delete "${RUN_PATH}${RUN}/Data/Intensities/BaseCalls/" "${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}"
 							#Then we need to organize it by reading the samplesheet
 							#${GREP} -e '${SAMPLE_IDS}' "${RUNS_DIR}${RUN}/Alignment
 							#f** it's a mess we'll do it directly with the fastqs
@@ -153,7 +156,7 @@ do
 							done
 							#$(ls input/NS/${INPUT}/${RUN}/*fastq.gz | cut -d '_' -f 1 | mkdir)
 
-							#launch nenufaar - output in RackStation RS
+							#launch nenufaar
 							echo "$(date) launching ${NENUFAAR} on run ${RUN}"
 							cp ${NENUFAAR_DIR}input/NS/${INPUT}/*.list ${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/
 							cp ${NENUFAAR_DIR}input/NS/${INPUT}/*.bed ${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/
