@@ -126,7 +126,7 @@ do
 								RUN_ARRAY[${RUN}]=1
 							fi
 							#get fastqs in input
-							#deal with manifest and intervals file
+							#deal with manifest and intervals file - specific names choose yours
 							INPUT='132_hg19'
 							if [[ "${FILE}" =~ /NS_.+_2\.txt ]]; then
 								INPUT='2_hg19'
