@@ -1,4 +1,8 @@
 *.conf
 *.log
 *.txt
-
+.DS_Store
+._.DS_Store
+._empty_report.docx
+empty_report.docx
+help_dev/
