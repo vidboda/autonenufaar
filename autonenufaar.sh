@@ -130,7 +130,7 @@ do
 							INPUT='132_hg19'
 							if [[ "${FILE}" =~ /NS_.+_2\.txt ]]; then
 								INPUT='2_hg19'
-							elif [ "${FILE}" == 'NS_targeted_121_1.txt' ]; then
+							elif [[ "${FILE}" =~ /NS_targeted_121_1.txt ]]; then
 								INPUT='121_hg19'
 							fi
 							#LOG_FILE="${AUTONENUFAAR_DIR}autonenufaar.log"
