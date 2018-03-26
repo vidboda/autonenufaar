@@ -114,7 +114,7 @@ do
 					#deal with multiple NS_ files
 					j=0
 					for FILE in ${i}; do
-						if [[ "${FILE}" =~ /NS_.+\.txt ]] && [ "${j}" -eq 0 ]; then
+						if [[ "${FILE}" =~ /NS_.+_[[:digit:]]+\.txt ]] && [ "${j}" -eq 0 ]; then
 							((j++))
 							#we are in an NS run
 							if [ -z "${RUN_ARRAY[${RUN}]}" ];then
@@ -128,11 +128,12 @@ do
 							#get fastqs in input
 							#deal with manifest and intervals file - specific names choose yours
 							INPUT='132_hg19'
-							if [[ "${FILE}" =~ /NS_.+_2\.txt ]]; then
+							if [[ "${FILE}" =~ /NS_targeted_2\.txt ]]; then
 								INPUT='2_hg19'
-							elif [[ "${FILE}" =~ /NS_targeted_121_1.txt ]]; then
+							elif [[ "${FILE}" =~ /NS_targeted_121_1\.txt ]]; then
 								INPUT='121_hg19'
 							fi
+							#echo ${INPUT};exit;
 							#LOG_FILE="${AUTONENUFAAR_DIR}autonenufaar.log"
 							#touch ${LOG_FILE}
 							#exec &>${LOG_FILE}
