@@ -124,7 +124,7 @@ do
 								#Change value on array and file to running
 								sed -i -e "s/${RUN}=0/${RUN}=1/g" "${RUNS_FILE}"
 								RUN_ARRAY[${RUN}]=1
-							fi
+							fi							
 							#get fastqs in input
 							#deal with manifest and intervals file - specific names choose yours
 							INPUT='132_hg19'
@@ -145,9 +145,26 @@ do
 							#f** it's a mess we'll do it directly with the fastqs
 							mkdir "${RUN_PATH}${RUN}/nenufaar"
 							chmod 777 "${RUN_PATH}${RUN}/nenufaar"
-							SAMPLE_PATHS=$(ls ${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/*fastq.gz)
+							
+							#run CNV script
+							#check if MobiCNV.py is present
+							#https://github.com/mobidic/cnv_illumina
+							#requires xlsxwriter > 1.0.0 python module
+							if [ -f "${MOBICNV}" ];then
+								if [ -n "$(find ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/*_S1.coverage.csv -type f)" ];then
+									echo "$(date) Running MobiCNV on run ${RUN}"
+									echo "${PYTHON} ${MOBICNV} -p ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
+									${PYTHON} ${MOBICNV} -p ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
+								elif [ -n "$(find ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/*_S1.coverage.csv -type f)" ];then
+									echo "$(date) Running MobiCNV on run ${RUN}"
+									echo "${PYTHON} ${MOBICNV} -p ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
+									${PYTHON} ${MOBICNV} -p ${MINISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
+								fi
+							fi
+							
+							SAMPLE_PATHS="$(ls ${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/*fastq.gz)"
 							for SAMPLE_PATH in ${SAMPLE_PATHS}; do
-								SAMPLE=$(basename "${SAMPLE_PATH}" | cut -d '_' -f 1)
+								SAMPLE="$(basename "${SAMPLE_PATH}" | cut -d '_' -f 1)"
 								if [ ! -d "${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/${SAMPLE}" ]; then
 									mkdir "${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/${SAMPLE}"
 									#echo "${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/${SAMPLE}_*fastq.gz ${NENUFAAR_DIR}input/NS/${INPUT}/${RUN}/${SAMPLE}/"
