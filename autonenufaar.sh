@@ -153,12 +153,12 @@ do
 							if [ -f "${MOBICNV}" ];then
 								if [ -n "$(find ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/*_S1.coverage.csv -type f)" ];then
 									echo "$(date) Running MobiCNV on run ${RUN}"
-									echo "${PYTHON} ${MOBICNV} -p ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
-									${PYTHON} ${MOBICNV} -p ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
+									echo "${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
+									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
 								elif [ -n "$(find ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/*_S1.coverage.csv -type f)" ];then
 									echo "$(date) Running MobiCNV on run ${RUN}"
-									echo "${PYTHON} ${MOBICNV} -p ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
-									${PYTHON} ${MOBICNV} -p ${MINISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
+									echo "${PYTHON} ${MOBICNV} -i ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
+									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
 								fi
 							fi
 							
