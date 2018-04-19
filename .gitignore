@@ -4,6 +4,7 @@
 .DS_Store
 ._.DS_Store
 ._empty_report.docx
+._*
 empty_report.docx
 help_dev/
 cnv_illumina
