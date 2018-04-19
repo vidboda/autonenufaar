@@ -148,7 +148,7 @@ do
 							
 							#run CNV script
 							#check if MobiCNV.py is present
-							#https://github.com/mobidic/cnv_illumina
+							#https://github.com/mobidic/MobiCNV
 							#requires xlsxwriter > 1.0.0 python module
 							if [ -f "${MOBICNV}" ];then
 								if [ -n "$(find ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/*_S1.coverage.csv -type f)" ];then
