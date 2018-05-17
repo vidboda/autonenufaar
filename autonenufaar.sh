@@ -127,11 +127,13 @@ do
 							fi							
 							#get fastqs in input
 							#deal with manifest and intervals file - specific names choose yours
-							INPUT='132_hg19'
+							INPUT='152_hg19'
 							if [[ "${FILE}" =~ /NS_targeted_2\.txt ]]; then
 								INPUT='2_hg19'
 							elif [[ "${FILE}" =~ /NS_targeted_121_1\.txt ]]; then
 								INPUT='121_hg19'
+							elif [[ "${FILE}" =~ /NS_targeted_132_stringent_capture_v3_2\.txt ]]; then
+								INPUT='132_hg19'
 							fi
 							#echo ${INPUT};exit;
 							#LOG_FILE="${AUTONENUFAAR_DIR}autonenufaar.log"
