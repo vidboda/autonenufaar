@@ -155,12 +155,12 @@ do
 							if [ -f "${MOBICNV}" ];then
 								if [ -n "$(find ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/*_S1.coverage.csv -type f)" ];then
 									echo "$(date) Running MobiCNV on run ${RUN}"
-									echo "${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_*/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
-									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
+									echo "${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_*/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miseq.xlsx"
+									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miniseq.xlsx
 								elif [ -n "$(find ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/*_S1.coverage.csv -type f)" ];then
 									echo "$(date) Running MobiCNV on run ${RUN}"
-									echo "${PYTHON} ${MOBICNV} -i ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx"
-									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}.xlsx
+									echo "${PYTHON} ${MOBICNV} -i ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miseq.xlsx"
+									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miseq.xlsx
 								fi
 							fi
 							
@@ -186,6 +186,15 @@ do
 							if [ "$?" -eq 0 ];then
 								echo "$(date) Running MultiQC"
 								${MULTIQC} -o "${NENUFAAR_DIR}output/NS/${RUN}" -n "${RUN}_multiqc" "${NENUFAAR_DIR}output/NS/${RUN}"
+								if [ -f "${MOBICNV}" ];then
+									if [ -n "$(find ${NENUFAAR_DIR}output/NS/${RUN} -type f)" ];then
+										echo "$(date) Running MobiCNV on Nenufarised run ${RUN}"
+										echo "${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN} -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx"
+										${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN} -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx
+									else
+										echo "WARNING No data for MobiCNV nenufarised"
+									fi
+								fi
 								echo "$(date) Moving ${RUN} in ${RUN_PATH}${RUN}/nenufaar/ folder"
 								${RSYNC} -avq --remove-source-files "${NENUFAAR_DIR}output/NS/${RUN}" "${RUN_PATH}${RUN}/nenufaar/"
 								#must be done form RS
