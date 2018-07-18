@@ -189,8 +189,8 @@ do
 								if [ -f "${MOBICNV}" ];then
 									if [ -n "$(find ${NENUFAAR_DIR}output/NS/${RUN} -type f)" ];then
 										echo "$(date) Running MobiCNV on Nenufarised run ${RUN}"
-										echo "${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN} -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx"
-										${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN} -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx
+										echo "${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN}/MobiCNVFiles -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx -v ${NENUFAAR_DIR}output/NS/${RUN}/MobiVCF"
+										${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN}/MobiCNVFiles -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx -v ${NENUFAAR_DIR}output/NS/${RUN}/MobiVCF
 									else
 										echo "WARNING No data for MobiCNV nenufarised"
 									fi
