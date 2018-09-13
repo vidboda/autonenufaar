@@ -153,10 +153,10 @@ do
 							#https://github.com/mobidic/MobiCNV
 							#requires xlsxwriter > 1.0.0 python module
 							if [ -f "${MOBICNV}" ];then
-								if [ -n "$(find ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/*_S1.coverage.csv -type f)" ];then
+								if [ -n "$(find ${MINISEQ_RUNS_DIR}${RUN}/Alignment_*/*/*_S1.coverage.csv -type f)" ];then
 									echo "$(date) Running MobiCNV on run ${RUN}"
 									echo "${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_*/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miseq.xlsx"
-									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_1/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miniseq.xlsx
+									${PYTHON} ${MOBICNV} -i ${MINISEQ_RUNS_DIR}${RUN}/Alignment_*/*/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miniseq.xlsx
 								elif [ -n "$(find ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/*_S1.coverage.csv -type f)" ];then
 									echo "$(date) Running MobiCNV on run ${RUN}"
 									echo "${PYTHON} ${MOBICNV} -i ${MISEQ_RUNS_DIR}${RUN}/Data/Intensities/BaseCalls/ -t csv -o ${RUN_PATH}${RUN}/nenufaar/${RUN}_miseq.xlsx"
@@ -189,8 +189,8 @@ do
 								if [ -f "${MOBICNV}" ];then
 									if [ -n "$(find ${NENUFAAR_DIR}output/NS/${RUN} -type f)" ];then
 										echo "$(date) Running MobiCNV on Nenufarised run ${RUN}"
-										echo "${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN}/MobiCNVFiles -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx -v ${NENUFAAR_DIR}output/NS/${RUN}/MobiVCF"
-										${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN}/MobiCNVFiles -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx -v ${NENUFAAR_DIR}output/NS/${RUN}/MobiVCF
+										echo "${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN}/MobiCNVFiles/ -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx -v ${NENUFAAR_DIR}output/NS/${RUN}/MobiVCF"
+										${PYTHON} ${MOBICNV} -i ${NENUFAAR_DIR}output/NS/${RUN}/MobiCNVFiles/ -t tsv -o ${NENUFAAR_DIR}output/NS/${RUN}/${RUN}.xlsx -v ${NENUFAAR_DIR}output/NS/${RUN}/MobiVCF
 									else
 										echo "WARNING No data for MobiCNV nenufarised"
 									fi
